@@ -1,34 +1,34 @@
 # Bunting Clearance Feasibility Report
 
 ## Mathematical model
-Let the horizontal measurement distance be d, the angle up from horizontal be theta, and eye height be h_e.
+Let the horizontal measurement distance be $d$, the angle up from horizontal be $\theta$, and eye height be $h_e$.
 The lamp-post bracket height is:
-H_b = h_e + d*tan(theta)
+$$H_b = h_e + d\tan(\theta)$$
 The support cable mount height at the powerline attachment point is:
-H_s = H_b - delta_s
+$$H_s = H_b - \Delta_s$$
 The live wire height is:
-H_w = H_s - delta_w
+$$H_w = H_s - \Delta_w$$
 The minimum allowed bunting height above sidewalk is:
-H_min = H_road + H_crown
-Let the across-street lamp-post gap be D and the along-street offset be A.
+$$H_{min} = H_{road} + H_{crown}$$
+Let the across-street lamp-post gap be $D$ and the along-street offset be $A$.
 The bunting span length is:
-L = sqrt(D^2 + A^2)
+$$L = \sqrt{D^2 + A^2}$$
 The bunting sag is modeled as a symmetric catenary with endpoints at equal height.
-With x=0 at midspan, the catenary is:
-z(x) = a*cosh(x/a) - a
-The endpoint sag is S = z(L/2), and the endpoint (mount) height is H_m.
-Thus the midspan (lowest point) height is H_m - S and must satisfy:
-H_m - S >= H_min  =>  H_m >= H_min + S
-The live wires cross the bunting at fraction t = g/D along the straight-line span,
-where g is the horizontal offset from lamp post to the powerline mount. The distance from midspan is:
-s = |t - 1/2|*L
+With $x=0$ at midspan, the catenary is:
+$$z(x) = a\cosh(x/a) - a$$
+The endpoint sag is $S = z(L/2)$, and the endpoint (mount) height is $H_m$.
+Thus the midspan (lowest point) height is $H_m - S$ and must satisfy:
+$$H_m - S \ge H_{min} \quad\Rightarrow\quad H_m \ge H_{min} + S$$
+The live wires cross the bunting at fraction $t = g/D$ along the straight-line span,
+where $g$ is the horizontal offset from lamp post to the powerline mount. The distance from midspan is:
+$$s = |t - 1/2|L$$
 The bunting height at the wire crossing is:
-H_cross = H_m - S + z(s)
+$$H_{cross} = H_m - S + z(s)$$
 Clearance constraints are enforced as:
-H_m <= H_b - C_s
-H_cross <= H_w - C_w
-The catenary parameter a is related to horizontal tension H and weight per unit length w by:
-a = H / w, where w = m_bunting * g_accel.
+$$H_m \le H_b - C_s$$
+$$H_{cross} \le H_w - C_w$$
+The catenary parameter $a$ is related to horizontal tension $H$ and weight per unit length $w$ by:
+$$a = H / w, \quad w = m_{bunting} g$$
 
 ## Inputs (meters unless noted)
 - Measurement distance to bracket: 9.100
@@ -124,13 +124,3 @@ One-at-a-time sensitivity highlight:
 - Live wires are 0.15 m below the support cable at the mount point.
 - Clearance requirements are enforced at the exact plan intersections with live wires.
 - The multi-parameter sweep uses a best-case height-only check (no catenary feasibility scan).
-
-## Run log
-- cat README.md
-- python - <<'PY' (rewrite model.py)
-- python model.py --self-test --report report.md
-- cat report.md
-- python - <<'PY' (update report run log)
-- python - <<'PY' (update report run log)
-- python - <<'PY' (add zero-sag sentence)
-- python - <<'PY' (update report run log)
